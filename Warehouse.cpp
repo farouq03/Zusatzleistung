@@ -80,7 +80,7 @@ void Warehouse::packageOut(int ID)
         int i = 0;
         while (i < numofPackages) {
             if(ID == start[i].getID()){
-                cout << "** Ausgelagerte Ware **" << endl;
+                cout << endl << "** Ausgelagerte Ware **" << endl;
                 cout << "Ware-ID: " << start[i].getID() << endl;
                 cout << "Groesse: " << start[i].getSize() << endl;
                 cout << "Beschreibung: " << start[i].getDescription() << endl;
@@ -100,10 +100,10 @@ void Warehouse::packageOut(int ID)
             }
             i++;
         }
-        if(!found) cout << "Ware nicht gefunden." << endl;
+        if(!found) cout << endl << "Ware nicht gefunden." << endl;
     }
     else {
-        cout << "Lagerhaus ist leer." << endl;
+        cout << endl << "Lagerhaus ist leer." << endl;
     }
 
 }
@@ -126,9 +126,9 @@ void Warehouse::reduce()
     for(int i = 0; i < numofPackages; i++){
         tempPackages[i] = start[i];
     }
-    delete[] start;
-    start = tempPackages;
-}
+    delete[] start; //Lösche den alten Array
+    start = tempPackages; //Definiere den Array mit dem neuen
+} //Temp wird automatisch gelöscht
 
 void Warehouse::sorting()
 {
@@ -177,7 +177,7 @@ void Warehouse::sorting()
         }
         break;
 
-    case 4: //Absteigende nach Groesse
+    case 4: //Absteigende Sortierung nach Groesse
         for(int i = 0; i < numofPackages; i++){
             Package tmp = start[i];
 

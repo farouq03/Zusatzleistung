@@ -54,7 +54,6 @@ int main()
             cout << endl;
             break;
         }
-        cout << endl;
     } while(eingabe != 'x');
 
 
