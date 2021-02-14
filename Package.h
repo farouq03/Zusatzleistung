@@ -6,7 +6,7 @@
 class Package
 {
 public:
-    enum packageSize {small, medium, big};
+    enum packageSize { small, medium, big };
 
 private:
     int packageID;

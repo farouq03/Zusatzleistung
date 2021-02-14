@@ -2,6 +2,7 @@
 #include "Package.h"
 #include "Warehouse.h"
 #include <string>
+#include "Package.h"
 
 using namespace std;
 
@@ -12,7 +13,7 @@ int main()
     Warehouse w(maxCapacity);
 
     char eingabe;
-    do{
+    do {
         cout << "** Willkommen in der Lagerverwaltung. **" << endl;
         cout << "Bitte taetigen Sie Ihre Eingabe: " << endl;
         cout << "(b): Den Lagerbestand ausgeben." << endl;
@@ -21,7 +22,7 @@ int main()
         cout << "(x): Die Eingabe beenden." << endl;
         cout << "Eingabe: ";
         cin >> eingabe;
-        while (eingabe != 'a' && eingabe != 'b' && eingabe!= 'e' && eingabe != 'x') {
+        while (eingabe != 'a' && eingabe != 'b' && eingabe != 'e' && eingabe != 'x') {
             cout << "Falsche Eingabe. Wiederholen Sie." << endl;
             cout << "Eingabe: ";
             cin >> eingabe;
@@ -30,17 +31,36 @@ int main()
 
         switch (eingabe) {
         case 'b':
-            w.print();
-            break;
+            w.print(); break;
 
         case 'a':
+        {
             int id_input;
             cout << "Geben Sie die ID der auszulagernden Ware: ";
             cin >> id_input;
-            w.packageOut(id_input);
+            bool found = false;
+            Package* out = new Package;
+            *out = w.packageOut(id_input, found);
+
+            if (found) {
+                string stringSize[] = { "Klein", "Medium", "Gross" };
+                cout << endl << "** Ausgelagerte Ware **" << endl;
+                cout << "Ware-ID: " << out->getID() << endl;
+                cout << "Groesse: " << stringSize[out->getSize()] << endl;
+                cout << "Beschreibung: " << out->getDescription() << endl;
+                cout << endl << endl;
+                delete out;
+            }
+            else
+            {
+                cout << "Ware nicht gefunden." << endl << endl;
+            }
+            
             break;
+        }
 
         case 'e':
+        {
             int size_input;
             std::string description_input;
             cout << "Geben Sie die Groesse der Ware und die Beschreibung dazu." << endl;
@@ -50,11 +70,12 @@ int main()
             cin >> description_input;
             Package* package = new Package((Package::packageSize)size_input, description_input);
             w.packageIn(package);
-            delete package; //Ware, die wir erstellt haben, wird geloescht, weil die bereits ins Lager eingelagert
+            delete package; //Ware, die wir erstellt haben, wird geloescht, weil die bereits ins Lager eingelagert ist
             cout << endl;
             break;
         }
-    } while(eingabe != 'x');
+        }
+    } while (eingabe != 'x');
 
 
     return 0;

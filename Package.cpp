@@ -15,18 +15,19 @@ Package::~Package()
     //std::cout << "Ware aus dem Lager ausgelagert\n";
 }
 
-int Package::getID() const{
+int Package::getID() const {
     return packageID;
 }
 
-void Package::setID(int ID){
+void Package::setID(int ID) {
     packageID = ID;
 }
 
-Package::packageSize Package::getSize() const{
+Package::packageSize Package::getSize() const {
     return size;
 }
 
-std::string Package::getDescription() const{
+std::string Package::getDescription() const {
     return description;
 }
+

@@ -18,7 +18,7 @@ public:
     Warehouse(int maxPackages);
     void print();
     void packageIn(Package* const p);
-    void packageOut(int ID);
+    Package packageOut(int ID, bool& found);
 };
 
 #endif // WAREHOUSE_H
