@@ -1,7 +1,6 @@
 #include <iostream>
 #include "Package.h"
 #include "Warehouse.h"
-#include <string>
 #include "Package.h"
 
 using namespace std;
