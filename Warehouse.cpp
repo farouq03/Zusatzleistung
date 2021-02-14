@@ -3,20 +3,25 @@
 
 using namespace std;
 
-int Warehouse::numofPackages = 0;
 
-Warehouse::Warehouse(int maxPackages)
+Warehouse::Warehouse(int _maxPackages)
+    : 
+    maxPackages(_maxPackages),
+    start(new Package[maxPackages]), 
+    numofPackages(0)
 {
-    Warehouse::maxPackages = maxPackages;
-    start = new Package[maxPackages];
 }
 
-void Warehouse::print()
-{
+void Warehouse::print(bool sorted)
+{   
     if (numofPackages > 0) {
         cout << endl << "Anzahl der Waren: " << numofPackages << endl;
         cout << "Maximale Kapazitaet: " << maxPackages << endl << endl;
-        sorting();
+        
+        if (sorted) {
+            sorting();
+        }
+
         string stringSize[] = { "Klein", "Medium", "Gross" };
         cout << "** Liste der Waren **" << endl;
         for (int i = 0; i < numofPackages; i++) {
@@ -59,9 +64,12 @@ void Warehouse::packageIn(Package* const p)
         while (i < numofPackages) {
             if (newID == start[i].getID()) {
                 newID = rand() % 99 + 1;
-                i = -1; //Damit wir die Schleife wieder von Anfang durchinterieren
+                i = 0;
             }
-            i++;
+            else
+            {
+                i++;
+            }
         }
         p->setID(rand() % 99 + 1);
     }
@@ -92,7 +100,7 @@ Package Warehouse::packageOut(int ID, bool& found)
                 start = temp;
                 numofPackages--;
                 if (numofPackages != 0 && numofPackages <= maxPackages / 2) reduce();
-
+                
                 return *gefunden;
             }
             i++;
@@ -106,6 +114,7 @@ Package Warehouse::packageOut(int ID, bool& found)
 
 void Warehouse::expand()
 {
+    cout << "Lager war voll. Groesse wurde verdoppelt" << endl;
     maxPackages *= 2;
     Package* tempPackages = new Package[maxPackages];
     for (int i = 0; i < numofPackages; i++) {
@@ -117,6 +126,7 @@ void Warehouse::expand()
 
 void Warehouse::reduce()
 {
+    cout << "Lager war zu gross. Groesse wurde reduziert" << endl;
     maxPackages /= 2;
     Package* tempPackages = new Package[maxPackages];
     for (int i = 0; i < numofPackages; i++) {

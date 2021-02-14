@@ -7,7 +7,7 @@ class Warehouse
 private:
     int maxPackages;
     Package* start;
-    static int numofPackages;
+    int numofPackages;
     void sorting();
 
     void expand();
@@ -15,8 +15,8 @@ private:
 
 
 public:
-    Warehouse(int maxPackages);
-    void print();
+    Warehouse(int _maxPackages);
+    void print(bool sorted = false);
     void packageIn(Package* const p);
     Package packageOut(int ID, bool& found);
 };

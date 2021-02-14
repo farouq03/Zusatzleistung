@@ -2,13 +2,13 @@
 #define PACKAGE_H
 #include <iostream>
 
-
 class Package
 {
 public:
     enum packageSize { small, medium, big };
 
 private:
+    bool isEmpty;
     int packageID;
     packageSize size;
     std::string description;
